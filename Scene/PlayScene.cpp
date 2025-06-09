@@ -11,6 +11,7 @@
 #include <queue>
 #include <string>
 #include <vector>
+#include <random>
 
 #include "Enemy/Enemy.hpp"
 #include "Enemy/SoldierEnemy.hpp"
@@ -190,7 +191,35 @@ void PlayScene::Update(float deltaTime) {
             continue;
         ticks -= current.second;
         enemyWaveData.pop_front();
-        const Engine::Point SpawnCoordinate = Engine::Point(SpawnGridPoint.x * BlockSize + BlockSize / 2, SpawnGridPoint.y * BlockSize + BlockSize / 2);
+        //const Engine::Point SpawnCoordinate = Engine::Point(SpawnGridPoint.x * BlockSize + BlockSize / 2, SpawnGridPoint.y * BlockSize + BlockSize / 2);
+        //const Engine::Point SpawnCoordinate = Engine::Point(SpawnGridPoint.x * BlockSize + BlockSize / 2, SpawnGridPoint.y * BlockSize + BlockSize / 2);
+        // 找所有可走格子當作可能的出生點
+        std::vector<Engine::Point> validSpawnPoints;
+        for (int y = 0; y < mapState.size(); ++y) {
+            for (int x = 0; x < mapState[y].size(); ++x) {
+                if (mapState[y][x] == 0) { // 假設 0 表示可走的地點
+                    validSpawnPoints.emplace_back(x, y);
+                }
+            }
+        }
+
+        // 如果找到可用的出生格子
+        Engine::Point SpawnCoordinate;
+        if (!validSpawnPoints.empty()) {
+            // 使用 C++ 隨機數產生器
+            std::random_device rd;
+            std::mt19937 gen(rd());
+            std::uniform_int_distribution<> dis(0, validSpawnPoints.size() - 1);
+            Engine::Point gridPos = validSpawnPoints[dis(gen)];
+            SpawnCoordinate = Engine::Point(gridPos.x * BlockSize + BlockSize / 2, gridPos.y * BlockSize + BlockSize / 2);
+        } else {
+            // 預設退回原本的生成點（防呆）
+            SpawnCoordinate = Engine::Point(SpawnGridPoint.x * BlockSize + BlockSize / 2, SpawnGridPoint.y * BlockSize + BlockSize / 2);
+        }
+        
+        
+        
+        
         Enemy *enemy;
         switch (current.first) {
             case 1:
