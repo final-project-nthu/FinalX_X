@@ -21,10 +21,6 @@ PlayScene *Enemy::getPlayScene() {
     return dynamic_cast<PlayScene *>(Engine::GameEngine::GetInstance().GetActiveScene());
 }
 void Enemy::OnExplode() {
-    PlayScene* scene = getPlayScene();
-    if (scene) {
-        scene->killcnt++;
-    }
     getPlayScene()->EffectGroup->AddNewObject(new ExplosionEffect(Position.x, Position.y));
     std::random_device dev;
     std::mt19937 rng(dev());

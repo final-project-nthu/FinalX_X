@@ -6,4 +6,5 @@ class SoldierEnemy : public Enemy {
 public:
     SoldierEnemy(int x, int y);
 };
+
 #endif   // SOLDIERENEMY_HPP
