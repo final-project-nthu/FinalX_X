@@ -1,16 +1,21 @@
+// Player.hpp
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
-
+#include <string>
 #include "Engine/Sprite.hpp"
 
-class Player : public Engine::Sprite {
-public:
-    explicit Player(std::string img, float x, float y, float speed);
-    virtual void Update(float deltaTime) override;
-    virtual void Draw() const override;
+class PlayScene;
 
+class Player : public Engine::Sprite {
 protected:
     float speed;
+    PlayScene* getPlayScene();
+
+public:
+    bool Enabled = true;
+    Player(std::string img, float x, float y, float speed);
+    void Update(float deltaTime) override;
+    void Draw() const override;
 };
 
-#endif
+#endif // PLAYER_HPP
