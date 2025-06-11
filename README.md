@@ -49,12 +49,12 @@ void Enemy::Draw() const {
     if (PlayScene::DebugMode) {
         al_draw_circle(Position.x, Position.y, CollisionRadius, al_map_rgb(255, 0, 0), 2);
     }
-
+    
+    // 這段是血條 可以不用管
     float barWidth = 40;     
     float barHeight = 4;     
     float offsetY = -18;     
     float healthRatio = hp / hpMax;
-
     // 背景（灰色）
     al_draw_filled_rectangle(
         Position.x - barWidth / 2, Position.y + offsetY,
