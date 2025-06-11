@@ -69,3 +69,22 @@ void Enemy::Draw() const {
         al_map_rgb(255, 0, 0)
     );
 }
+
+//playscene :: initialize加入
+player = new Wizard("play/turret-1.png", 100, 100, 300);  
+AddNewObject(player);
+
+//playscene::upate加入
+if (player)
+        player->Update(deltaTime);
+
+//playscene :: draw加入
+if (player)
+        player->Draw();
+
+//playscene.hpp加入 建議在public
+Player* player; 
+
+// 記得include 
+Player/Player.hpp
+Player/Wizard.hpp
