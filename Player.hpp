@@ -16,6 +16,7 @@ public:
     Player(std::string img, float x, float y, float speed);
     void Update(float deltaTime) override;
     void Draw() const override;
+    Engine::Point GetPosition() const;
 };
 
 #endif // PLAYER_HPP
