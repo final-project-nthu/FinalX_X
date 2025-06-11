@@ -59,3 +59,6 @@ void Player::Update(float deltaTime) {
 void Player::Draw() const {
     Engine::Sprite::Draw();
 }
+Engine::Point Player::GetPosition() const {
+    return Position;
+}
